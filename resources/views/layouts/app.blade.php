@@ -12,13 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         @stack('css')
-        {{-- @if(request()->routeIs('attendies'))
-            <link href="https://123.css" rel="stylesheet" />
-            <link href="https://456.css" rel="stylesheet" />
-        @else
-            <link href="https://789.css" rel="stylesheet" />
-            <link href="https://0.css" rel="stylesheet" />
-        @endif --}}
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -39,5 +33,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @stack('js-start')
     </body>
 </html>
