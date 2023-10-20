@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\{ProfileController,UserController,MeetingController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,16 +21,20 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/attendies', function () {
-    return view('attendies');
-})->middleware(['auth', 'verified'])->name('attendies');
+Route::get('/attendees', function () {
+    return view('meeting.index');
+})->middleware(['auth', 'verified'])->name('attendees');
+
+Route::get('oauth-google-redirect', [UserController::class, 'manage_google_callback']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::resource('users',UserController::class);
+
+    Route::resource('meetings',MeetingController::class);
 });
 
 require __DIR__.'/auth.php';

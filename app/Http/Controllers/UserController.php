@@ -77,4 +77,9 @@ class UserController extends Controller
     {
         //
     }
+    public function manage_google_callback(Request $request){
+        if(auth()->user()->update(['google_access_token'=>$request->code])){
+            return redirect()->route('meetings.create');
+        }
+    }
 }
